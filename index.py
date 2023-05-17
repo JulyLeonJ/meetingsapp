@@ -6,7 +6,7 @@ app = Flask (__name__,template_folder='templates')
                                                     #creando rutas
 def Home():
     
-    return render_template('templates/home.html')
+    return render_template('home.html')
 
 if __name__ == '__main__':
     
