@@ -1,5 +1,6 @@
 from controller import usuarios
 from config.mysqlconnection import connectToMySQL
+
 class Usuarios:
     def __init__(self,data): ##metodo de instancia
         self.id = data['id']
@@ -7,8 +8,7 @@ class Usuarios:
         self.apellido = data['apellido']
         self.password = data['password']
         self.correo = data['correo']
-        self.usuarios[]
-
+        
 ## ___________________________________________________##
     @classmethod
     def save(cls,data): ##metodo de clase 
@@ -56,19 +56,4 @@ class Usuarios:
     
 ## ___________________________________________________##
 
-    @classmethod
-    def get_users_with_meetings(cls,data):
-        # obtener usuarios que tienen programadas reuniones  
-        query = "SELECT * FROM usuarios LEFT JOIN reuniones ON reuniones.organizador = id_usuario  WHERE organizador = %(id_usuario)s;"
-        results = connectToMySQL('usuarios').query_db(query,data)
-        usuarios = cls(results[0])
-        for row_from_db in results:
-            # Now we parse the topping data to make instances of toppings and add them into our list.
-            reuniones_data = {
-                'id': row_from_db['reuniones.id'],
-                'topping_name': row_from_db['topping_name'],
-                'created_at': row_from_db['toppings.created_at'],
-                'updated_at': row_from_db['toppings.updated_at']
-            }
-            usuarios.reuniones.append(reuniones.Reuniones(reuniones_data))
-        return usuarios
+    
