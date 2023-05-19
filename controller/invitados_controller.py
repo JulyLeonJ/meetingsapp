@@ -1,4 +1,4 @@
-from meetingsapp import app
+from index import app
 from flask import render_template, redirect, request, session, session, flash
 from model import invitados
 

@@ -1,4 +1,4 @@
-from meetingsapp import app
+from index import app
 from flask import render_template, redirect, request, session, session, flash
 from model import usuarios
 
@@ -37,7 +37,7 @@ def detail_page(id_usuario):
     data = {
         'id': id_usuario
     }
-    return render_template("usuario.html",usuarios= usuarios.get_one(data))
+    return render_template("usuarios.html",usuarios= usuarios.get_one(data))
 
 ## ________________________________________##
 
