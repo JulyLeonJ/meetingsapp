@@ -1,24 +1,50 @@
+from meetingsapp import app
 from flask import render_template, redirect, request, session, session, flash
-from model import usuarios
+from model import Usuarios
 
 @app.route('/')
 def index():
-    return render_template("index.html",usuarios= usuarios.get_all())
+    return render_template("home.html")
 
-@app.route('/create',methods=['GET'])
+## ____________________________________________##
+
+
+
+@app.route('/create',methods=['POST'])
 def create():
+    if request.method == 'POST'{
+        
+    
     data = {
         "nombre":request.form['nombre'],
         "apellido": request.form['apellido'],
         "password": request.form['password'],
         "correo": request.form['correo'],
             }
-    usuarios.save(data)
+    Usuarios.save(data)
+    }
     return redirect('/usuarios')
 
-@app.route('/')
+## ________________________________________##
+
+@app.route('/usuarios')
 def usuarios():
-    return render_template("results.html",all_users=usuarios.get_all())
+    return render_template("usuarios.html",all_usuarios=Usuarios.get_all())
+
+    
+    
+    
+    
+ ##    
+@app.route('/usuarios', methods=['GET'])
+def listar_usuarios():
+    usuarios = user.get_all()
+    return render_template("listar_usuarios.html", usuarios = usuarios)
+
+def listar_usuarios():
+    # Lógica para obtener una lista de usuarios de la base de datos
+    usuarios = User.obtener_todos()
+    return render_template('listar_usuarios.html', usuarios=usuarios)
 
 
 @app.route('/show/<int:id_usuario>')
@@ -26,31 +52,31 @@ def detail_page(id_usuario):
     data = {
         'id': id_usuario
     }
-    return render_template("details_page.html",usuarios=Burger.get_one(data))
+    return render_template("details_page.html",usuarios=usuario.get_one(data))
 
-@app.route('/edit_page/<int:burger_id>')
-def edit_page(burger_id):
+@app.route('/edit_page/<int:id_usuario>')
+def edit_page(id_usuario):
     data = {
-        'id': burger_id
+        'id': id_usuario
     }
-    return render_template("edit_page.html", burger = Burger.get_one(data))
+    return render_template("edit_page.html", usuario = usuario.get_one(data))
 
-@app.route('/update/<int:burger_id>', methods=['POST'])
-def update(burger_id):
+@app.route('/update/<int:id_usuario>', methods=['POST'])
+def update(id_usuario):
     data = {
-        'id': burger_id,
-        "name":request.form['name'],
-        "bun": request.form['bun'],
-        "meat": request.form['meat'],
-        "calories": request.form['calories']
+        'id': id_usuario,
+        "nombre":request.form['nombre'],
+        "apellido": request.form['apellido'],
+        "password": request.form['password'],
+        "correo": request.form['correo'],
     }
-    Burger.update(data)
-    return redirect(f"/show/{burger_id}")
+    usuario.update(data)
+    return redirect(f"/show/{id_usuario}")
 
-@app.route('/delete/<int:burger_id>')
-def delete(burger_id):
+@app.route('/delete/<int:id_usuario>')
+def delete(id_usuario):
     data = {
-        'id': burger_id,
+        'id': id_usuario,
     }
-    Burger.destroy(data)
-    return redirect('/burgers')
+    usuarios.destroy(data)
+    return redirect('/usuarios')
