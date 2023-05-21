@@ -1,4 +1,4 @@
-from controller import reuniones
+from controller import reuniones_controller
 from config.mysqlconnection import connectToMySQL
 
 class Reuniones:

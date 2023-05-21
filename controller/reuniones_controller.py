@@ -1,13 +1,12 @@
 from index import app
 from flask import render_template, redirect, request, session, session, flash
-from model import reuniones
+from model.reuniones import Reuniones
 
 @app.route('/')
 def index():
     return render_template("home.html")
 
 ## ____________________________________________##
-
 
 
 @app.route('/create',methods=['POST'])

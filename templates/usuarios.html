@@ -6,10 +6,13 @@
     <title>Este es el html de usuarios</title>
   </head>
   <body>
+    {% block body %}
+    {%  print(listaUsuario)  %}
     <h1>Esto es una cabecera h1</h1>
     <p>Esto es un párrafo.</p>
     <href>Esto es un párrafo.</p>
     <h2>Esto es una cabecera h2</h2>
     <p>Esto es otro párrafo.</p>
+    {% endblock %}
   </body>
 </html>

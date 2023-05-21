@@ -12,7 +12,6 @@ class Invitados:
     def save(cls,data): ##metodo de clase 
         query = "INSERT INTO invitados (id_invitado,disponibilidad) VALUES (%(id_invitado)s,%(disponibilidad)s))"
         return connectToMySQL('invitados_schema').query_db(query,data)
-
 ## ___________________________________________________##
 
     @classmethod

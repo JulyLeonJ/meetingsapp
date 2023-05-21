@@ -1,19 +1,15 @@
-from flask import Flask, render_template 
+from flask import Flask, render_template,redirect, url_for,request
+from config.mysqlconnection import connectToMySQL
 from vidstream import *
 import tkinter as tk
 import socket
-from controller import reuniones_controller
-from controller import invitados_controller
-from controller import usuarios_controller
 import threading
-import requests
+import controller
                                                     #importando flask
 app = Flask (__name__,template_folder='templates')
                                                     #creando app 
-@app.route('/')
-                                                    #creando rutas
+@app.route('/')#creando rutas
 def index():
-    
     return render_template('home.html')
 
 if __name__ == '__main__':
@@ -22,9 +18,23 @@ if __name__ == '__main__':
                                                     #corriendo app 
 local_ip_address = socket.gethostbyname(socket.gethostname())
 
-@app.route('/controller/usuarios_controller')
-                                                    #creando rutas
-def usuarios_controller():
-    
-    return render_template('home.html')
+
+
+@app.route('/user/',methods=['GET']) ##que tipo de metodo estoy usando para consumir
+def user():
+    data = ["July"] ## data sera igual al nombre del metodo que estoy consumiendo del controlador
+    return render_template('usuarios.html',listaUsuario=data[0]) ##voy a mostrar data mandandola a la vista del template
+
+@app.route('/createUser/',methods=['POST']) ##que tipo de metodo estoy usando para consumir
+def createUser():
+    data = controller.invitados_controller.mostrar_Ejemplo()
+    return render_template('usuarios.html',listaUsuario=data[0]) ##voy a mostrar data mandandola a la vista del template
+
+
+
+
+
+
+
+
 
