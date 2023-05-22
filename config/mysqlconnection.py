@@ -1,11 +1,11 @@
 # a cursor is the object we use to interact with the database
-
+import pymysql
 # this class will give us an instance of a connection to our database
 class MySQLConnection:
     def __init__(self, db):
         connection = pymysql.connect(host = 'localhost',
                                     user = 'root', # change the user and password as needed
-                                    password = 'root', 
+                                    password = '', 
                                     db = 'bd_meetings',
                                     charset = 'utf8mb4',
                                     autocommit = True)

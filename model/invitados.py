@@ -1,4 +1,4 @@
-from controller import invitados
+from controller import invitados_controller
 from config.mysqlconnection import connectToMySQL
 
 class Invitados:
@@ -31,7 +31,7 @@ class Invitados:
         invitados_from_db =  connectToMySQL('invitados_schema').query_db(query)
         invitados =[]
         for b in invitados_from_db:
-          invitados.append(cls(b))
+          invitados.append(invitados_from_db)
         return invitados
     
 ## ___________________________________________________##    

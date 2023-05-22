@@ -1,17 +1,14 @@
-from index import app
+from app import app
 from flask import render_template, redirect, request, session, session, flash
-from model import invitados
+from model.invitados import Invitados
 
-@app.route('/')
-def index():
-    return render_template("home.html")
 
 ## ____________________________________________##
 
 
 
-@app.route('/create',methods=['POST'])
-def create():
+@app.route('/createinvitados',methods=['POST'])
+def createinvitados():
 
     data = {
         "disponibilidad": request.form['disponibilidad'],
@@ -31,26 +28,18 @@ def invitados():
 ## ________________________________________##
 
 
-@app.route('/show/<int:id_invitado>')
-def detail_page(id_invitado):
+@app.route('/showguest/<int:id_invitado>')
+def detail_pageguest(id_invitado):
     data = {
         'id': id_invitado
     }
-    return render_template("invitado.html",invitados= invitados.get_one(data))
+    return render_template("invitados.html",invitados= invitados.get_one(data))
 
 ## ________________________________________##
 
-@app.route('/edit_page/<int:id_invitado>')
-def edit_page(id_invitado):
-    data = {
-        'id': id_invitado
-    }
-    return render_template("edit_page.html", invitado = invitados.get_one(data))
 
-## ________________________________________##
-
-@app.route('/update/<int:id_invitado>', methods=['POST'])
-def update(id_invitado):
+@app.route('/updateguest/<int:id_invitado>', methods=['POST'])
+def updateguest(id_invitado):
     data = {
         "disponibilidad": request.form['disponibilidad'],
         "id_invitado": request.form['id_invitado'],
@@ -60,8 +49,8 @@ def update(id_invitado):
 
 ## ________________________________________##
 
-@app.route('/delete/<int:id_invitado>')
-def delete(id_invitado):
+@app.route('/deleteguest/<int:id_invitado>')
+def deleteguest(id_invitado):
     data = {
         'id': id_invitado,
     }

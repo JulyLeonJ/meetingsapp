@@ -7,10 +7,10 @@
   </head>
   <body>
     {% block body %}
-    {%  print(listaUsuario)  %}
+    {%  print([all_usuarios[0]])  %}
     <h1>Esto es una cabecera h1</h1>
     <p>Esto es un párrafo.</p>
-    <href>Esto es un párrafo.</p>
+    <a href="{{ url_for('usuarios') }}" class="text-warning">Listado de Usuarios</a>
     <h2>Esto es una cabecera h2</h2>
     <p>Esto es otro párrafo.</p>
     {% endblock %}

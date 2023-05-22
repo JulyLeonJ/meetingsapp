@@ -1,16 +1,13 @@
-from index import app
+from app import app
 from flask import render_template, redirect, request, session, session, flash
 from model.reuniones import Reuniones
 
-@app.route('/')
-def index():
-    return render_template("home.html")
 
 ## ____________________________________________##
 
 
-@app.route('/create',methods=['POST'])
-def create():
+@app.route('/createreuniones',methods=['POST'])
+def createreuniones():
 
     data = {
         "titulo":request.form['titulo'],
@@ -35,8 +32,8 @@ def reuniones():
 ## ________________________________________##
 
 
-@app.route('/show/<int:id_reunion>')
-def detail_page(id_reunion):
+@app.route('/showmeet/<int:id_reunion>')
+def detail_pagemeet(id_reunion):
     data = {
         'id': id_reunion
     }
@@ -44,17 +41,9 @@ def detail_page(id_reunion):
 
 ## ________________________________________##
 
-@app.route('/edit_page/<int:id_reunion>')
-def edit_page(id_reunion):
-    data = {
-        'id': id_reunion
-    }
-    return render_template("edit_page.html", reunion = reuniones.get_one(data))
 
-## ________________________________________##
-
-@app.route('/update/<int:id_reunion>', methods=['POST'])
-def update(id_reunion):
+@app.route('/updatemeet/<int:id_reunion>', methods=['POST'])
+def updatemeet(id_reunion):
     data = {
         "titulo":request.form['titulo'],
         "duracion":request.form['duracion'],
@@ -69,8 +58,8 @@ def update(id_reunion):
 
 ## ________________________________________##
 
-@app.route('/delete/<int:id_reunion>')
-def delete(id_reunion):
+@app.route('/deletemeet/<int:id_reunion>')
+def deletemeet(id_reunion):
     data = {
         'id': id_reunion,
     }

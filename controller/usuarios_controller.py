@@ -1,57 +1,47 @@
-from index import app
+from app import app
 from flask import render_template, redirect, request, session, session, flash
-from model import usuarios
+from model.usuarios import Usuarios
 
-@app.route('/')
-def index():
-    return render_template("home.html")
 
 ## ____________________________________________##
 
 
 
-@app.route('/create',methods=['POST'])
-def create():
+@app.route('/createusuarios')
+def createusuarios():
         
-    data = {
+    data = {  ## data sera igual al nombre del metodo que estoy consumiendo del controlador
+        "id_usuario":request.form['id_usuario'],
         "nombre":request.form['nombre'],
         "apellido":request.form['apellido'],
         "password": request.form['password'],
         "correo": request.form['correo'],
             }
-    usuarios.save(data)
+    Usuarios.save(data)
     
-    return redirect('/usuarios')
+    return redirect('/usuarios') 
 
 ## ________________________________________##
 
 @app.route('/usuarios')
 def usuarios():
-    return render_template("usuarios.html",all_usuarios= usuarios.get_all())
+    return render_template("usuarios.html",all_usuarios= Usuarios.get_all())
 
 ## ________________________________________##
 
 
-@app.route('/show/<int:id_usuario>')
-def detail_page(id_usuario):
+@app.route('/showuser/<int:id_usuario>')
+def detail_pageuser(id_usuario):
     data = {
         'id': id_usuario
     }
-    return render_template("usuarios.html",usuarios= usuarios.get_one(data))
+    return render_template("usuarios.html",usuarios= Usuarios.get_one(data))
 
 ## ________________________________________##
 
-@app.route('/edit_page/<int:id_usuario>')
-def edit_page(id_usuario):
-    data = {
-        'id': id_usuario
-    }
-    return render_template("edit_page.html", usuario = usuarios.get_one(data))
 
-## ________________________________________##
-
-@app.route('/update/<int:id_usuario>', methods=['POST'])
-def update(id_usuario):
+@app.route('/updateuser/<int:id_usuario>', methods=['POST'])
+def updateuser(id_usuario):
     data = {
         'id': id_usuario,
         "nombre":request.form['nombre'],
@@ -59,15 +49,15 @@ def update(id_usuario):
         "password": request.form['password'],
         "correo": request.form['correo'],
     }
-    usuarios.update(data)
+    Usuarios.update(data)
     return redirect(f"/show/{id_usuario}")
 
 ## ________________________________________##
 
-@app.route('/delete/<int:id_usuario>')
-def delete(id_usuario):
+@app.route('/deleteuser/<int:id_usuario>')
+def deleteuser(id_usuario):
     data = {
         'id': id_usuario,
     }
-    usuarios.destroy(data)
+    Usuarios.destroy(data)
     return redirect('/usuarios')
