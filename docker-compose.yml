@@ -1,0 +1,40 @@
+version: "3"
+services:
+  mysql_db:
+    container_name: mysql_db
+    command: --explicit_defaults_for_timestamp=1
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost:3306"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    build: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: meetings_app
+      MYSQL_USER: meet
+      MYSQL_PASSWORD: 
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/mysql:/docker-entrypoint-initdb.d
+    restart: on-failure
+
+  api:
+    container_name: meetings_app
+    build: ./backend
+    environment:
+      MYSQL_HOST: mysql_db
+      MYSQL_DATABASE: meetings_app
+      MYSQL_USER: meet
+      MYSQL_PASSWORD:
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    restart: on-failure
+  
+volumes:
+  data: { driver: local }
